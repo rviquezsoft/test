@@ -33,7 +33,10 @@ namespace WebSocketsServer.Controllers
             string userAgent = HttpContext.Request.Headers.UserAgent;
 
             // Obtener la dirección IP del cliente
-            string ipAddress = HttpContext.Request.Host.Value;
+            string ipAddress = $"{HttpContext.Connection.RemoteIpAddress.MapToIPv4()}";
+
+            string conectionId = $"{HttpContext.Connection.Id}";
+            string port = $"{HttpContext.Connection.RemotePort}";
 
             // Otros datos posibles que podrías recopilar:
             // - Idioma del navegador: Request.UserLanguages;
@@ -43,6 +46,8 @@ namespace WebSocketsServer.Controllers
             // Puedes enviar estos datos a tu vista para mostrarlos o procesarlos según sea necesario
             ViewBag.UserAgent = userAgent;
             ViewBag.IPAddress = ipAddress;
+            ViewBag.Port = port;
+            ViewBag.CnId = conectionId;
 
             return View();
         }
